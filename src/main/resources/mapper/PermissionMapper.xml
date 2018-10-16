@@ -15,4 +15,14 @@
         sys_permission
     </select>
 
+    <!--新增权限-->
+    <insert id="addPermission" parameterType="Permission">
+        INSERT INTO sys_permission(name,url,code)
+        VALUES(
+        #{name},
+        #{url},
+        #{code}
+        )
+    </insert>
+
 </mapper>
