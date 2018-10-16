@@ -15,6 +15,10 @@ public interface RoleService {
      */
     void addRole(Role role);
 
+    /**
+     * 查询所有角色
+     * @return
+     */
     List<Role> findRoles();
 
 }
