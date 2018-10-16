@@ -116,6 +116,7 @@ public class UserController {
      *
      * @return
      */
+    @RequiresPermissions("user:add")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAdd(Model model) {
         setRoles(model);
