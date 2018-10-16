@@ -22,5 +22,27 @@
 </form>
 </body>
 <script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-
+<script>
+    $(document).ready(function () {
+        $(".save_submit").click(function () {
+            var data = $(".user_form").serialize();
+            console.log(data);
+            //请求新增权限
+            $.ajax({
+                url: "${pageContext.request.contextPath}/permission/add",
+                type: "post",
+                dataType: "json",
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    window.location.href = "/permission/list";
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+            return false;
+        })
+    })
+</script>
 </html>
