@@ -17,6 +17,18 @@
 
 <ul>
     <li>
+        <shiro:hasPermission name="user:list">
+            <a href="${pageContext.request.contextPath}/user/list">用户管理</a>
+        </shiro:hasPermission>
+
+    </li>
+    <li>
+        <a href="${pageContext.request.contextPath}/role/list">角色管理</a>
+    </li>
+    <li>
+        <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
+    </li>
+    <li>
             <a href="${pageContext.request.contextPath}/role/list">角色列表</a>
 
     </li>
