@@ -2,6 +2,7 @@ package com.weiyu.controller;
 
 import com.weiyu.dao.RoleDao;
 import com.weiyu.domain.Role;
+import com.weiyu.service.PermissionService;
 import com.weiyu.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +27,16 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private PermissionService permissionService;
+
     /**
      * 跳转新增角色页面
      * @return
      */
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String showRole() {
+    public String showRole(Model model) {
+        setPermissions(model);
         return "role/add";
     }
 
@@ -41,9 +46,9 @@ public class RoleController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addRole(Role role){
+    public Map<String, Object> addRole(Role role, Long... permissionIds){
         Map<String,Object> map = new HashMap<>();
-        roleService.addRole(role);
+        roleService.addRole(role, permissionIds);
         System.out.println("-----------"+role.getId()+"-----------");
         System.out.println("-----------"+role.getName()+"-----------");
         map.put("msg", "OK!");
@@ -66,6 +71,10 @@ public class RoleController {
     @ResponseBody
     public void deleteRole(Long id){
         roleService.deleteRole(id);
+    }
+
+    private void setPermissions(Model model) {
+        model.addAttribute("permissionList", permissionService.findAllPermission());
     }
 
 }
