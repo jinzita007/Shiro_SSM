@@ -32,6 +32,19 @@ public class RoleController {
     private PermissionService permissionService;
 
     /**
+     * 查询所有角色信息
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("role:list")
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String RoleList(Model model) {
+        List<Role> roleList = roleService.findRoles();
+        model.addAttribute("roleList", roleList);
+        return "role/list";
+    }
+
+    /**
      * 跳转新增角色页面
      * @return
      */
@@ -59,17 +72,9 @@ public class RoleController {
     }
 
     /**
-     * 查询所有角色信息
-     * @param model
-     * @return
+     * 删除角色
+     * @param id
      */
-    @RequiresPermissions("role:list")
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String RoleList(Model model) {
-        List<Role> roleList = roleService.findRoles();
-        model.addAttribute("roleList", roleList);
-        return "role/list";
-    }
     @RequiresPermissions("role:delete")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody

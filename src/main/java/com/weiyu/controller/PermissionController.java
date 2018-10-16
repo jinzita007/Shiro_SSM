@@ -2,6 +2,7 @@ package com.weiyu.controller;
 
 import com.weiyu.domain.Permission;
 import com.weiyu.service.PermissionService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class PermissionController {
      * 跳转权限页面
      * @return
      */
+    @RequiresPermissions("permission:list")
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String PermissionList(Model model){
         List<Permission> permissionList = permissionService.findAllPermission();
@@ -40,6 +42,7 @@ public class PermissionController {
      * 跳转新增权限页面
      * @return
      */
+    @RequiresPermissions("permission:add")
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String showPermission() {
         return "permission/add";
@@ -50,6 +53,7 @@ public class PermissionController {
      * @param permission
      * @return
      */
+    @RequiresPermissions("permission:add")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addPermission(Permission permission) {
