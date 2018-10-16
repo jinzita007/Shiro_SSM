@@ -27,4 +27,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findRoles(){
         return roleDao.findRoles();
     }
+
+    @Override
+    public void deleteRole(Long id){
+        roleDao.deleteRole(id);
+    }
 }
