@@ -22,4 +22,10 @@
         FROM
         sys_role
     </select>
+
+    <!--删除角色-->
+    <delete id="deleteRole" parameterType="long">
+        DELETE FROM sys_role
+        WHERE id = #{id}
+    </delete>
 </mapper>
