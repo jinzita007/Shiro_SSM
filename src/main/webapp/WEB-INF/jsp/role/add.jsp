@@ -11,15 +11,15 @@
     <title>新增角色</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+
 </head>
 <body>
 <form id="form1" class="user_form">
     <p>角色：<input name="name" type="text" value=""/></p>
-
     <p><input type="submit" class="save_submit" value="保存">&nbsp<input type="reset" value="重置"></p>
 </form>
 </body>
+<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $(".save_submit").click(function () {
@@ -33,6 +33,7 @@
                 data: data,
                 success: function (data) {
                     console.log(data);
+                    window.location.href = "/role/list";
                 },
                 error: function () {
                     console.log("error");

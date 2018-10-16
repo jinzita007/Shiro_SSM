@@ -40,10 +40,11 @@ public class RoleController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addRole(){
+    public Map<String, Object> addRole(Role role){
         Map<String,Object> map = new HashMap<>();
-        Role role = new Role();
         roleService.addRole(role);
+        System.out.println("-----------"+role.getId()+"-----------");
+        System.out.println("-----------"+role.getName()+"-----------");
         map.put("msg", "OK!");
         return map;
     }
