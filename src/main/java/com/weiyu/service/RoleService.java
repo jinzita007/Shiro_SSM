@@ -9,7 +9,11 @@ import java.util.List;
  * @date 2018/10/13 上午9:07.
  */
 public interface RoleService {
-    int save(Role role);
+    /**
+     * 增加角色
+     * @param role
+     */
+    void addRole(Role role);
 
     List<Role> findRoles();
 
