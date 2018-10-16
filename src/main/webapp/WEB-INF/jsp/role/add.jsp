@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>新增角色</title>
@@ -16,6 +17,19 @@
 <body>
 <form id="form1" class="user_form">
     <p>角色：<input name="name" type="text" value=""/></p>
+
+    <div class="form-roles">
+        <label>权限选择</label>
+        <select name="permissionIds">
+            <option value="" selected>=请选择=</option>
+            <c:forEach items="${permissionList}" var="value">
+                <option value="${value.id}">
+                        ${value.name}
+                </option>
+            </c:forEach>
+        </select>
+    </div>
+
     <p><input type="submit" class="save_submit" value="保存">&nbsp<input type="reset" value="重置"></p>
 </form>
 </body>
