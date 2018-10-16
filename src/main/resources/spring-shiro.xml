@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <mvc:annotation-driven />
+    <context:component-scan base-package="com.weiyu.service"/>
+
+    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/user/login"/>
+        <!--<property name="successUrl" value="/index"/>-->
+        <!--<property name="unauthorizedUrl" value="/refuse"/>-->
+        <!--自定义filter-->
+        <!--<property name="filters">-->
+            <!--<util:map>-->
+                <!--&lt;!&ndash; 将自定义的FormAuthenticationFilter注入shiroFiler中 &ndash;&gt;-->
+                <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+            <!--</util:map>-->
+        <!--</property>-->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--登录页允许访问-->
+                /user/login = anon
+                <!--注销-->
+                /user/logout = logout
+                <!--其他资源需要认证-->
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!--安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+    </bean>
+
+
+    <!--自定义realm-->
+    <bean id="userRealm" class="com.weiyu.realm.UserRealm"/>
+
+    <!-- 基于Form表单的身份验证过滤器 -->
+    <!--<bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">-->
+        <!--<property name="usernameParam" value="username"/>-->
+        <!--<property name="passwordParam" value="password"/>-->
+        <!--<property name="loginUrl" value="/user/login"/>-->
+    <!--</bean>-->
+
+    <!--Shiro生命周期处理器-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+</beans>
