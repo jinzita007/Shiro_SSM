@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>权限首页</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/app.css">
 </head>
 <body>
 

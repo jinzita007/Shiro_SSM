@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>角色管理</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/app.css">
 </head>
 <body>
 

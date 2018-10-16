@@ -13,6 +13,7 @@
 <head>
     <title>管理页面</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/plugin/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/app.css">
 </head>
 <body>
 
