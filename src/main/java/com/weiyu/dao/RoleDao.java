@@ -9,7 +9,8 @@ import java.util.List;
  * @date 2018/10/13 上午8:19.
  */
 public interface RoleDao {
-    int save(Role role);
+
+    void addRole(Role role);
 
     List<Role> findRoles();
 }
