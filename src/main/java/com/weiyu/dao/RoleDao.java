@@ -1,6 +1,7 @@
 package com.weiyu.dao;
 
 import com.weiyu.domain.Role;
+import com.weiyu.domain.RolePermission;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface RoleDao {
     List<Role> findRoles();
 
     void deleteRole(Long id);
+
+    void addRolePermission(RolePermission rolePermission);
 
 }
