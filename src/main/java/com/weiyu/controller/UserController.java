@@ -1,8 +1,6 @@
 package com.weiyu.controller;
 
-import com.weiyu.dao.UserDao;
 import com.weiyu.domain.User;
-import com.weiyu.domain.UserRole;
 import com.weiyu.service.RoleService;
 import com.weiyu.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -25,6 +23,7 @@ import java.util.Map;
 /**
  * @author zhouyulong
  * @date 2018/10/11 下午2:55.
+ * 用户控制层
  */
 @Controller
 @RequestMapping("/user")
