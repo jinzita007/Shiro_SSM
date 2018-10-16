@@ -4,4 +4,15 @@
 
 <mapper namespace="com.weiyu.dao.PermissionDao">
 
+    <!--查询所有权限信息-->
+    <select id="findAllPermission" resultType="Permission">
+        SELECT
+        id,
+        name,
+        url,
+        code
+        FROM
+        sys_permission
+    </select>
+
 </mapper>
