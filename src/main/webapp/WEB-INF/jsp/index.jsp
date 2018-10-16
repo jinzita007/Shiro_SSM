@@ -20,7 +20,7 @@
 
     </li>
     <li>
-        <a href="">角色管理</a>
+        <a href="${pageContext.request.contextPath}/role/list">角色管理</a>
     </li>
     <li>
         <a href="">权限管理</a>
