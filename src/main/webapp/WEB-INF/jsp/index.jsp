@@ -25,7 +25,7 @@
         <a href="${pageContext.request.contextPath}/role/list">角色管理</a>
     </li>
     <li>
-        <a href="">权限管理</a>
+        <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
     </li>
 </ul>
 <a href="${pageContext.request.contextPath}/user/logout">退出</a>
