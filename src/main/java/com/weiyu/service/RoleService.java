@@ -21,4 +21,10 @@ public interface RoleService {
      */
     List<Role> findRoles();
 
+    /**
+     * 删除角色
+     * @param id
+     */
+    void deleteRole(Long id);
+
 }
