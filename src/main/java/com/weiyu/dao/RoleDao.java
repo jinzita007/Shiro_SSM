@@ -13,4 +13,7 @@ public interface RoleDao {
     void addRole(Role role);
 
     List<Role> findRoles();
+
+    void deleteRole(Long id);
+
 }
