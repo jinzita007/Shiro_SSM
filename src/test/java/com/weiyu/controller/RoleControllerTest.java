@@ -30,7 +30,7 @@ public class RoleControllerTest {
     public void roleSave() {
         Role role = new Role();
         role.setName("Administrator0");
-        roleDao.save(role);
+        roleDao.addRole(role);
     }
 //    @Test
 //    public void addUser(){
