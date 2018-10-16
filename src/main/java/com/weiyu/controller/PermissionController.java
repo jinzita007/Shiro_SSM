@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhouyulong
@@ -40,5 +43,19 @@ public class PermissionController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String showPermission() {
         return "permission/add";
+    }
+
+    /**
+     * 新增权限接口
+     * @param permission
+     * @return
+     */
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addPermission(Permission permission) {
+        Map<String, Object> map = new HashMap<>();
+        permissionService.addPermission(permission);
+        map.put("msg", "新增成功！");
+        return map;
     }
 }
