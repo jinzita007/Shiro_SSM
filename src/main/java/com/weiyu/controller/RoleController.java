@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhouyulong
  * @date 2018/10/13 上午9:10.
+ * 角色控制层
  */
 @Controller
 @RequestMapping("role")
@@ -26,8 +30,22 @@ public class RoleController {
      * @return
      */
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String addRole() {
+    public String showRole() {
         return "role/add";
+    }
+
+    /**
+     * 新增角色
+     * @return
+     */
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addRole(){
+        Map<String,Object> map = new HashMap<>();
+        Role role = new Role();
+        roleService.addRole(role);
+        map.put("msg", "OK!");
+        return map;
     }
 
     /**
