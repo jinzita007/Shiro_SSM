@@ -22,4 +22,9 @@ public class PermissionServiceImpl implements PermissionService {
     public List<Permission> findAllPermission(){
         return permissionDao.findAllPermission();
     }
+
+    @Override
+    public void addPermission(Permission permission){
+        permissionDao.addPermission(permission);
+    }
 }
