@@ -1,5 +1,6 @@
 package com.weiyu.controller;
 
+import com.weiyu.dao.RoleDao;
 import com.weiyu.domain.Role;
 import com.weiyu.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,12 @@ public class RoleController {
         List<Role> roleList = roleService.findRoles();
         model.addAttribute("roleList", roleList);
         return "role/list";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteRole(Long id){
+        roleService.deleteRole(id);
     }
 
 }
