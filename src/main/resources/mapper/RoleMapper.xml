@@ -28,4 +28,14 @@
         DELETE FROM sys_role
         WHERE id = #{id}
     </delete>
+
+    <!--新增角色权限关联-->
+    <insert id="addRolePermission" parameterType="RolePermission">
+        INSERT INTO sys_role_permission(role_id,  permission_id)
+        VALUES(
+        #{id},
+        #{permissionId}
+        )
+    </insert>
+
 </mapper>
