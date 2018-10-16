@@ -55,6 +55,29 @@
 </body>
 <script src="${pageContext.request.contextPath}/static/plugin/zTree_v3/js/jquery-1.4.4.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $(".delete_submit").click(function () {
+            var id = $(this).attr("data-id");
+            console.log(id);
+            //请求新增用户
+            if (confirm('确认删除ID为"' + id + '"的角色吗？')) {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/role/delete",
+                    type: "post",
+                    dataType: "json",
+                    data: {id:id},
+                    success: function () {
+                        console.log("删除成功！");
+                        window.location.href = "/role/list";
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            }
 
+            return false;
+        })
+    })
 </script>
 </html>
