@@ -32,4 +32,13 @@ public class PermissionController {
         model.addAttribute("permissionList", permissionList);
         return "permission/list";
     }
+
+    /**
+     * 跳转新增权限页面
+     * @return
+     */
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public String showPermission() {
+        return "permission/add";
+    }
 }
