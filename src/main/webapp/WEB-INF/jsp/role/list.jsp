@@ -23,17 +23,23 @@
 
     </li>
     <li>
+        <shiro:hasPermission name="role:list">
         <a href="${pageContext.request.contextPath}/role/list">角色管理</a>
+        </shiro:hasPermission>
     </li>
     <li>
         <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
     </li>
     <li>
+        <shiro:hasPermission name="role:list">
             <a href="${pageContext.request.contextPath}/role/list">角色列表</a>
+        </shiro:hasPermission>
 
     </li>
     <li>
+        <shiro:hasPermission name="role:add">
             <a href="${pageContext.request.contextPath}/role/add">新增角色</a>
+        </shiro:hasPermission>
 
     </li>
 </ul>
