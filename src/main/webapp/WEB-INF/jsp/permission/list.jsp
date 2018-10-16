@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>权限管理</title>
@@ -26,17 +27,19 @@
         </shiro:hasPermission>
     </li>
     <li>
-
-        <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
+        <shiro:hasPermission name="permission:list">
+            <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
+        </shiro:hasPermission>
     </li>
     <li>
-        <a href="${pageContext.request.contextPath}/permission/list">权限列表</a>
-
+        <shiro:hasPermission name="permission:list">
+            <a href="${pageContext.request.contextPath}/permission/list">权限列表</a>
+        </shiro:hasPermission>
     </li>
     <li>
-
-        <a href="${pageContext.request.contextPath}/permission/add">新增权限</a>
-
+        <shiro:hasPermission name="permission:add">
+            <a href="${pageContext.request.contextPath}/permission/add">新增权限</a>
+        </shiro:hasPermission>
     </li>
 </ul>
 <a href="${pageContext.request.contextPath}/user/logout">退出</a>
@@ -59,9 +62,12 @@
         <td>${per.url}</td>
         <td>${per.code}</td>
         <td>
+            <shiro:hasPermission name="permission:update">
             <a href="">修改</a>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="permission:delete">
             <a href="javascript:void(0);" class="delete_submit" data-id="${per.id}">删除</a>
-
+            </shiro:hasPermission>
         </td>
     </tr>
     </c:forEach>

@@ -20,15 +20,16 @@
         <shiro:hasPermission name="user:list">
             <a href="${pageContext.request.contextPath}/user/list">用户管理</a>
         </shiro:hasPermission>
-
     </li>
     <li>
         <shiro:hasPermission name="role:list">
-        <a href="${pageContext.request.contextPath}/role/list">角色管理</a>
+            <a href="${pageContext.request.contextPath}/role/list">角色管理</a>
         </shiro:hasPermission>
     </li>
     <li>
-        <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
+        <shiro:hasPermission name="permission:list">
+            <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
+        </shiro:hasPermission>
     </li>
     <li>
         <shiro:hasPermission name="role:list">
@@ -59,9 +60,12 @@
         <td>${role.id}</td>
         <td>${role.name}</td>
         <td>
-                <a href="">修改</a>
-                <a href="javascript:void(0);" class="delete_submit" data-id="${role.id}">删除</a>
-
+            <shiro:hasPermission name="role:update">
+            <a href="">修改</a>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="role:delete">
+            <a href="javascript:void(0);" class="delete_submit" data-id="${role.id}">删除</a>
+            </shiro:hasPermission>
         </td>
     </tr>
     </c:forEach>
@@ -83,7 +87,7 @@
                     url: "${pageContext.request.contextPath}/role/delete",
                     type: "post",
                     dataType: "json",
-                    data: {id:id},
+                    data: {id: id},
                     success: function () {
                         console.log("删除成功！");
                         window.location.href = "/role/list";
