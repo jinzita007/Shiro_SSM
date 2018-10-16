@@ -5,7 +5,7 @@
 <mapper namespace="com.weiyu.dao.RoleDao">
 
     <!--新增用户-->
-    <insert id="save" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addRole" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_role(id, name, code, pid)
         VALUES(
         #{id},
