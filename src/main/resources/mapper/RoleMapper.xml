@@ -4,6 +4,32 @@
 
 <mapper namespace="com.weiyu.dao.RoleDao">
 
+    <resultMap type="RolePermission" id="RolePermissionResult">
+        <result column="role_id" property="roleId"/>
+        <result column="permission_id" property="permissionId"/>
+    </resultMap>
+
+    <!--根据角色查询ID-->
+    <select id="findById" resultType="Role">
+        SELECT
+        id,
+        name
+        FROM
+        sys_role
+        WHERE id = #{id}
+    </select>
+
+    <!--根据角色权限查询角色ID-->
+    <select id="findByRolePermission" resultMap="RolePermissionResult">
+        SELECT
+        role_id,
+        permission_id
+        FROM
+        sys_role_permission
+        WHERE
+        role_id = #{id}
+    </select>
+
     <!--新增用户-->
     <insert id="addRole" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_role(name)
@@ -31,11 +57,57 @@
 
     <!--新增角色权限关联-->
     <insert id="addRolePermission" parameterType="RolePermission">
-        INSERT INTO sys_role_permission(role_id,  permission_id)
+        INSERT INTO
+        sys_role_permission
+        (
+        role_id,
+        permission_id
+        )
         VALUES(
         #{id},
         #{permissionId}
         )
     </insert>
+
+    <!--更新角色-->
+    <update id="updateRole" parameterType="Role" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+        UPDATE
+        sys_role
+        SET
+        name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <!--删除角色权限关联-->
+    <delete id="deleteRolePermission" parameterType="long">
+        DELETE FROM sys_role_permission
+        WHERE role_id = #{id}
+    </delete>
+
+    <!--更新角色权限关联-->
+    <!--<update id="updateRolePermission" parameterType="RolePermission">-->
+        <!--UPDATE-->
+        <!--sys_role_permission-->
+        <!--SET-->
+        <!--role_id = #{id},-->
+        <!--permission_id = #{permissionId}-->
+        <!--WHERE id = #{rpId}-->
+    <!--</update>-->
+
+    <!--根据角色查找权限-->
+    <!--<select id="findByUserRolesId" resultType="UserRole">-->
+        <!--SELECT-->
+        <!--rp.id AS rpId,-->
+        <!--u.id AS userId,-->
+        <!--r.id AS roleId-->
+        <!--FROM-->
+        <!--sys_role AS u,-->
+        <!--sys_role AS r,-->
+        <!--sys_user_role AS ur-->
+        <!--WHERE-->
+        <!--r.id= #{id} AND u.id = ur.user_id AND r.id = ur.role_id-->
+    <!--</select>-->
+
+
 
 </mapper>
