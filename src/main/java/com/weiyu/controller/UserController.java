@@ -133,6 +133,7 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public User addUser(User user, Long... roleIds) {
+         System.out.println("-----------"+user.getUsername()+"-----------");
         userService.addUser(user, roleIds);
         return user;
     }
