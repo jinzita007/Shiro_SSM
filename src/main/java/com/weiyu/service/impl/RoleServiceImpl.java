@@ -25,6 +25,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<RolePermission> findByRolePermission(Long id) {
+        return roleDao.findByRolePermission(id);
+    }
+
+    @Override
+    public Role findById(Long id) {
+        return roleDao.findById(id);
+    }
+
+    @Override
     public void deleteRole(Long id){
         roleDao.deleteRole(id);
     }
@@ -39,4 +49,28 @@ public class RoleServiceImpl implements RoleService {
             }
         }
     }
+
+    @Override
+    public void updateRole(Role role, Long... permissionIds) {
+        roleDao.updateRole(role);
+        roleDao.deleteRolePermission(role.getId());
+        if(permissionIds != null && permissionIds.length>0 ) {
+            for (Long permissionId : permissionIds) {
+                System.out.println("--------角色id: "+role.getId()+"-----------角色权限ID: "+permissionId);
+                roleDao.addRolePermission(new RolePermission(role.getId(), permissionId));
+            }
+        }
+
+    }
+
+
+//    @Override
+//    public void addRolePermissions(Long id, Long... permissionIds) {
+//        if(permissionIds != null && permissionIds.length>0 ) {
+//            for (Long permissionId : permissionIds) {
+//                System.out.println("--------角色id: "+id+"-----------角色权限ID: "+permissionId);
+//                roleDao.addRolePermission(new RolePermission(id, permissionId));
+//            }
+//        }
+//    }
 }
