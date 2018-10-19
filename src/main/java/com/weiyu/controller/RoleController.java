@@ -1,16 +1,15 @@
 package com.weiyu.controller;
 
-import com.weiyu.dao.RoleDao;
+import com.weiyu.domain.Permission;
 import com.weiyu.domain.Role;
+import com.weiyu.domain.RolePermission;
 import com.weiyu.service.PermissionService;
 import com.weiyu.service.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,7 @@ import java.util.Map;
  * @date 2018/10/13 上午9:10.
  * 角色控制层
  */
+@CrossOrigin
 @Controller
 @RequestMapping("role")
 public class RoleController {
@@ -45,6 +45,21 @@ public class RoleController {
     }
 
     /**
+     * 查询权限信息
+     * @return
+     */
+    @RequestMapping(value = "role_list", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> queryByRole() {
+        Map<String,Object> map = new HashMap<>();
+        List<Permission> permissionList = permissionService.findAllPermission();
+
+        map.put("msg", "ok");
+        map.put("data", permissionList);
+        return map;
+    }
+
+    /**
      * 跳转新增角色页面
      * @return
      */
@@ -64,18 +79,89 @@ public class RoleController {
     @ResponseBody
     public Map<String, Object> addRole(Role role, Long... permissionIds){
         Map<String,Object> map = new HashMap<>();
-        roleService.addRole(role, permissionIds);
-        System.out.println("-----------"+role.getId()+"-----------");
-        System.out.println("-----------"+role.getName()+"-----------");
         map.put("msg", "OK!");
+        map.put("name", role.getName());
+        map.put("permissionIds", permissionIds);
         return map;
+    }
+
+//    /**
+//     * 获取角色ID
+//     * @param id
+//     * @return
+//     */
+//    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String, Object> showUpdate(@PathVariable("id") Long id) {
+//        Map<String,Object> map = new HashMap<>();
+//        List<RolePermission> rolePermissionList = roleService.findByRolePermission(id);
+//        map.put("role", roleService.findByRolePermission(id));
+//        if (roleService.findById(id)!=null) {
+//            map.put("data", roleService.findById(id));
+//            map.put("role", rolePermissionList);
+//        }
+//        return map;
+//
+//    }
+
+    /**
+     * 跳转编辑角色页面
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("role:update")
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    public String showUpdate(@PathVariable("id") Long id, Model model) {
+        List<RolePermission> rolePermissionList = roleService.findByRolePermission(id);
+        if (roleService.findById(id)!=null) {
+            model.addAttribute("data", roleService.findById(id));
+        }
+        return "role/edit";
+    }
+
+    /**
+     * 根据角色权限查询角色ID
+     * @param id
+     * @return
+     */
+    @RequiresPermissions("role:update")
+    @RequestMapping(value = "/roleperm/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> updateRole(@PathVariable("id") Long id) {
+        Map<String,Object> map = new HashMap<>();
+        List<RolePermission> rolePermissionList = roleService.findByRolePermission(id);
+        map.put("rolePermissionList", rolePermissionList);
+        return map;
+
+    }
+
+
+
+
+
+    /**
+     * 更新角色接口
+     * @param role
+     * @param permissionIds
+     */
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateRole(Role role, Long... permissionIds) {
+        Map<String,Object> map = new HashMap<>();
+        roleService.updateRole(role, permissionIds);
+        map.put("msg", "OK!");
+        map.put("name", role.getName());
+        map.put("permissionIds", permissionIds);
+        return map;
+
     }
 
     /**
      * 删除角色
      * @param id
      */
-    @RequiresPermissions("role:delete")
+//    @RequiresPermissions("role:delete")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public void deleteRole(Long id){
