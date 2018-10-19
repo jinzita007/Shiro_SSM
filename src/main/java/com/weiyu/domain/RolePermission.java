@@ -8,7 +8,9 @@ public class RolePermission {
     private Long id;
     private Long roleId;
     private Long permissionId;
+    public RolePermission() {
 
+    }
     public RolePermission(Long id, Long permissionId) {
         this.id = id;
         this.permissionId = permissionId;
