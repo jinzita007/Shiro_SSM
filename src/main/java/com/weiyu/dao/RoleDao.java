@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface RoleDao {
 
+    Role findById(Long id);
+
+    List<RolePermission> findByRolePermission(Long id);
+
     void addRole(Role role);
 
     List<Role> findRoles();
@@ -18,5 +22,11 @@ public interface RoleDao {
     void deleteRole(Long id);
 
     void addRolePermission(RolePermission rolePermission);
+
+    void updateRole(Role role);
+
+    void updateRolePermission(RolePermission rolePermission);
+
+    void deleteRolePermission(Long id);
 
 }
