@@ -18,6 +18,19 @@ public interface RoleService {
     List<Role> findRoles();
 
     /**
+     * 根据角色权限查询权限ID
+     * @param id
+     */
+    List<RolePermission> findByRolePermission(Long id);
+
+    /**
+     * 根据角色查询ID
+     * @param id
+     * @return
+     */
+    Role findById(Long id);
+
+    /**
      * 删除角色
      * @param id
      */
@@ -28,5 +41,14 @@ public interface RoleService {
      * @param role
      */
     void addRole(Role role, Long... permissionIds);
+
+    /**
+     * 更新角色权限关联
+     * @param role
+     * @param permissionIds
+     */
+    void updateRole(Role role, Long... permissionIds);
+
+//    void addRolePermissions(Long id, Long... permissionIds);
 
 }
