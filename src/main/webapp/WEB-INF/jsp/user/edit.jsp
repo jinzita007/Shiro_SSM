@@ -44,7 +44,7 @@
 </body>
 <%--<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>--%>
 <script src="${pageContext.request.contextPath}/static/plugin/zTree_v3/js/jquery-1.4.4.min.js"></script>
-<%--<script src="${pageContext.request.contextPath}/static/plugin/zTree_v3/js/jquery.ztree.all.min.js"></script>--%>
+<script src="${pageContext.request.contextPath}/static/plugin/zTree_v3/js/jquery.ztree.all.min.js"></script>
 <script>
 
     $(document).ready(function () {
