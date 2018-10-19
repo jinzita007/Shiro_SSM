@@ -62,7 +62,7 @@
         <td>${role.name}</td>
         <td>
             <shiro:hasPermission name="role:update">
-            <a href="">修改</a>
+            <a href="${pageContext.request.contextPath}/role/${role.id}/update">修改</a>
             </shiro:hasPermission>
             <shiro:hasPermission name="role:delete">
             <a href="javascript:void(0);" class="delete_submit" data-id="${role.id}">删除</a>
