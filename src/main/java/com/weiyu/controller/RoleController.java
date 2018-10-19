@@ -113,7 +113,6 @@ public class RoleController {
     @RequiresPermissions("role:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
     public String showUpdate(@PathVariable("id") Long id, Model model) {
-        List<RolePermission> rolePermissionList = roleService.findByRolePermission(id);
         if (roleService.findById(id)!=null) {
             model.addAttribute("data", roleService.findById(id));
         }
@@ -161,7 +160,7 @@ public class RoleController {
      * 删除角色
      * @param id
      */
-//    @RequiresPermissions("role:delete")
+    @RequiresPermissions("role:delete")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public void deleteRole(Long id){
