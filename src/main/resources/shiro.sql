@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 16, 2018 at 08:32 AM
--- Server version: 5.6.35
+-- Generation Time: 2018-10-19 14:30:49
+-- 服务器版本： 5.6.35
 -- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -17,19 +17,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sys_permission`
+-- 表的结构 `sys_permission`
 --
 
 CREATE TABLE `sys_permission` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL,
   `code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sys_permission`
+-- 转存表中的数据 `sys_permission`
 --
 
 INSERT INTO `sys_permission` (`id`, `name`, `url`, `pid`, `code`) VALUES
@@ -37,12 +37,22 @@ INSERT INTO `sys_permission` (`id`, `name`, `url`, `pid`, `code`) VALUES
 (2, '用户列表', '/user/list', 1, 'user:list'),
 (3, '新增用户', '', 1, 'user:add'),
 (4, '编辑用户', '', 1, 'user:update'),
-(5, '删除用户', '', 1, 'user:delete');
+(5, '删除用户', '', 1, 'user:delete'),
+(6, '角色管理', '/role', 0, 'role:*'),
+(7, '角色列表', '/role/list', 6, 'role:list'),
+(8, '新增角色', '', 6, 'role:add'),
+(9, '编辑角色', '', 6, 'role:update'),
+(10, '删除角色', '', 6, 'role:delete'),
+(11, '权限管理', '/permission', 0, 'permission:*'),
+(12, '权限列表', '/permission/list', 11, 'permission:list'),
+(13, '新增权限', '', 11, 'permission:add'),
+(14, '编辑权限', '', 11, 'permission:update'),
+(15, '删除权限', '', 11, 'permission:delete');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sys_role`
+-- 表的结构 `sys_role`
 --
 
 CREATE TABLE `sys_role` (
@@ -51,19 +61,22 @@ CREATE TABLE `sys_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sys_role`
+-- 转存表中的数据 `sys_role`
 --
 
 INSERT INTO `sys_role` (`id`, `name`) VALUES
 (1, '超级管理员'),
 (2, '管理员'),
 (3, 'Administrator'),
-(4, '测试人员');
+(4, '测试人员'),
+(8, '普通'),
+(11, '测试02'),
+(12, '测试03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sys_role_permission`
+-- 表的结构 `sys_role_permission`
 --
 
 CREATE TABLE `sys_role_permission` (
@@ -73,17 +86,24 @@ CREATE TABLE `sys_role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sys_role_permission`
+-- 转存表中的数据 `sys_role_permission`
 --
 
 INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`) VALUES
-(1, 1, 1),
-(2, 2, 2);
+(3, 11, 7),
+(6, 12, 1),
+(7, 12, 2),
+(8, 12, 6),
+(9, 1, 1),
+(10, 1, 6),
+(11, 1, 11),
+(13, 2, 1),
+(14, 2, 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sys_user`
+-- 表的结构 `sys_user`
 --
 
 CREATE TABLE `sys_user` (
@@ -94,7 +114,7 @@ CREATE TABLE `sys_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sys_user`
+-- 转存表中的数据 `sys_user`
 --
 
 INSERT INTO `sys_user` (`id`, `username`, `email`, `password`) VALUES
@@ -115,7 +135,7 @@ INSERT INTO `sys_user` (`id`, `username`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sys_user_role`
+-- 表的结构 `sys_user_role`
 --
 
 CREATE TABLE `sys_user_role` (
@@ -125,7 +145,7 @@ CREATE TABLE `sys_user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sys_user_role`
+-- 转存表中的数据 `sys_user_role`
 --
 
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES
@@ -175,31 +195,31 @@ ALTER TABLE `sys_user_role`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- 在导出的表使用AUTO_INCREMENT
 --
 
 --
--- AUTO_INCREMENT for table `sys_permission`
+-- 使用表AUTO_INCREMENT `sys_permission`
 --
 ALTER TABLE `sys_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT for table `sys_role`
+-- 使用表AUTO_INCREMENT `sys_role`
 --
 ALTER TABLE `sys_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `sys_role_permission`
+-- 使用表AUTO_INCREMENT `sys_role_permission`
 --
 ALTER TABLE `sys_role_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT for table `sys_user`
+-- 使用表AUTO_INCREMENT `sys_user`
 --
 ALTER TABLE `sys_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
--- AUTO_INCREMENT for table `sys_user_role`
+-- 使用表AUTO_INCREMENT `sys_user_role`
 --
 ALTER TABLE `sys_user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
