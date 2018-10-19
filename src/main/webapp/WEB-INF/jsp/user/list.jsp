@@ -30,7 +30,7 @@
         </shiro:hasPermission>
     </li>
     <li>
-        <shiro:hasPermission name="role:list">
+        <shiro:hasPermission name="permission:list">
         <a href="${pageContext.request.contextPath}/permission/list">权限管理</a>
         </shiro:hasPermission>
     </li>

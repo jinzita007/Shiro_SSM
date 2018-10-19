@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-19 14:30:49
+-- Generation Time: 2018-10-19 14:48:29
 -- 服务器版本： 5.6.35
 -- PHP Version: 5.5.38
 
@@ -98,7 +98,10 @@ INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`) VALUES
 (10, 1, 6),
 (11, 1, 11),
 (13, 2, 1),
-(14, 2, 6);
+(14, 2, 6),
+(15, 4, 2),
+(16, 4, 3),
+(17, 4, 7);
 
 -- --------------------------------------------------------
 
@@ -212,7 +215,7 @@ ALTER TABLE `sys_role`
 -- 使用表AUTO_INCREMENT `sys_role_permission`
 --
 ALTER TABLE `sys_role_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- 使用表AUTO_INCREMENT `sys_user`
 --
