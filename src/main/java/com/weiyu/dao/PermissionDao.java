@@ -11,6 +11,11 @@ import java.util.List;
 public interface PermissionDao {
 
     List<Permission> findAllPermission();
+
+    Permission findOne(Long id);
+
     void addPermission(Permission permission);
+
+    void deletePermission(Long id);
 
 }

@@ -2,15 +2,14 @@ package com.weiyu.controller;
 
 import com.weiyu.dao.RoleDao;
 import com.weiyu.dao.UserDao;
-import com.weiyu.domain.Role;
-import com.weiyu.domain.User;
-import com.weiyu.domain.UserRole;
+import com.weiyu.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author zhouyulong
@@ -31,6 +30,20 @@ public class RoleControllerTest {
         Role role = new Role();
         role.setName("Administrator0");
         roleDao.addRole(role);
+    }
+    @Test
+    public void addRole() {
+        String str = "小学,初中,高中,大专,本科,研究生,博士";
+        String[] buff = str.split(",");
+        for(int i=0;i<buff.length;i++){
+            System.out.println(buff[i]);
+        }
+    }
+    @Test
+    public void findByRolePerm() {
+        long id =new Long(1).intValue();
+        List<RolePermission> roleIdPermission = roleDao.findByRolePermission(id);
+        System.out.println("----------"+roleIdPermission);
     }
 //    @Test
 //    public void addUser(){

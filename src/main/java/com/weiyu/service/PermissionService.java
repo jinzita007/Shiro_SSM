@@ -16,9 +16,22 @@ public interface PermissionService {
     List<Permission> findAllPermission();
 
     /**
+     * 根据权限查询权限ID
+     * @param id
+     * @return
+     */
+    Permission findOne(Long id);
+
+    /**
      * 新增权限
      * @param permission
      */
     void addPermission(Permission permission);
+
+    /**
+     * 删除权限
+     * @param id
+     */
+    void deletePermission(Long id);
 
 }

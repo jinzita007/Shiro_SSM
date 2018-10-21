@@ -15,15 +15,33 @@
         FROM
         sys_permission
     </select>
+    
+    <select id="findOne" resultType="Permission">
+        SELECT
+        id,
+        pid,
+        name,
+        url,
+        code
+        FROM
+        sys_permission
+        WHERE id = #{id}
+    </select>
 
     <!--新增权限-->
     <insert id="addPermission" parameterType="Permission">
-        INSERT INTO sys_permission(name,url,code)
+        INSERT INTO sys_permission(name,url,pid,code)
         VALUES(
         #{name},
         #{url},
+        #{pid},
         #{code}
         )
     </insert>
+
+    <delete id="deletePermission" parameterType="long">
+        DELETE FROM sys_permission
+        WHERE id = #{id}
+    </delete>
 
 </mapper>
