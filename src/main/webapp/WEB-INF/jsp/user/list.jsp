@@ -124,10 +124,6 @@
 <script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
 <script type="text/javascript">
     var $table = $('#table');
-    var $modal = $('#modal').modal({
-        show: false
-    });
-
 
     $(function () {
         tableData();

@@ -54,4 +54,18 @@
 <br/>
 <br/>
 
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('ul.navbar-nav>li').find('a').each(function () {
+            if (this.href == document.location.href) {
+                $(this).parent().addClass('active'); // this.className = 'active';
+            }
+        });
+    })
+</script>
+
+
+
 
