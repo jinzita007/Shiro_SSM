@@ -16,6 +16,8 @@ public interface PermissionDao {
 
     void addPermission(Permission permission);
 
+    void updatePermission(Permission permission);
+
     void deletePermission(Long id);
 
 }

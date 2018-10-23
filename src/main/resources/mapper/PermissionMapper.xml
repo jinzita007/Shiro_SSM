@@ -39,6 +39,19 @@
         )
     </insert>
 
+    <!--更新权限-->
+    <update id="updatePermission" parameterType="Permission">
+        UPDATE
+        sys_permission
+        SET
+        name = #{name},
+        url = #{url},
+        pid = #{pid},
+        code = #{code}
+        WHERE id = #{id}
+    </update>
+
+    <!--删除权限-->
     <delete id="deletePermission" parameterType="long">
         DELETE FROM sys_permission
         WHERE id = #{id}

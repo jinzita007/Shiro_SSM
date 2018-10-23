@@ -32,16 +32,25 @@ public class RoleController {
     private PermissionService permissionService;
 
     /**
-     * 查询所有角色信息
-     * @param model
+     * 跳转角色管理页面
      * @return
      */
-    @RequiresPermissions("role:list")
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String RoleList(Model model) {
-        List<Role> roleList = roleService.findRoles();
-        model.addAttribute("roleList", roleList);
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String doRole() {
         return "role/list";
+    }
+
+    /**
+     * 所有角色列表接口
+     * @return
+     */
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> RoleList() {
+        Map<String,Object> map = new HashMap<>();
+        List<Role> roleList = roleService.findRoles();
+        map.put("data", roleList);
+        return map;
     }
 
     /**
@@ -60,18 +69,7 @@ public class RoleController {
     }
 
     /**
-     * 跳转新增角色页面
-     * @return
-     */
-    @RequiresPermissions("role:add")
-    @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String showRole(Model model) {
-        setPermissions(model);
-        return "role/add";
-    }
-
-    /**
-     * 新增角色
+     * 新增角色接口
      * @return
      */
     @RequiresPermissions("role:add")
@@ -79,30 +77,13 @@ public class RoleController {
     @ResponseBody
     public Map<String, Object> addRole(Role role, Long... permissionIds){
         Map<String,Object> map = new HashMap<>();
+        roleService.addRole(role, permissionIds);
         map.put("msg", "OK!");
         map.put("name", role.getName());
         map.put("permissionIds", permissionIds);
         return map;
     }
 
-//    /**
-//     * 获取角色ID
-//     * @param id
-//     * @return
-//     */
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Map<String, Object> showUpdate(@PathVariable("id") Long id) {
-//        Map<String,Object> map = new HashMap<>();
-//        List<RolePermission> rolePermissionList = roleService.findByRolePermission(id);
-//        map.put("role", roleService.findByRolePermission(id));
-//        if (roleService.findById(id)!=null) {
-//            map.put("data", roleService.findById(id));
-//            map.put("role", rolePermissionList);
-//        }
-//        return map;
-//
-//    }
 
     /**
      * 跳转编辑角色页面
@@ -162,10 +143,6 @@ public class RoleController {
     @ResponseBody
     public void deleteRole(Long id){
         roleService.deleteRole(id);
-    }
-
-    private void setPermissions(Model model) {
-        model.addAttribute("permissionList", permissionService.findAllPermission());
     }
 
 }

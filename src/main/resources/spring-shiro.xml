@@ -27,7 +27,7 @@
                 <!--注销-->
                 /user/logout = logout
                 <!--其他资源需要认证-->
-                <!--/** = authc-->
+                /** = authc
             </value>
         </property>
     </bean>

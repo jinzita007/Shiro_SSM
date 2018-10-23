@@ -29,6 +29,12 @@ public interface PermissionService {
     void addPermission(Permission permission);
 
     /**
+     * 更新权限
+     * @param permission
+     */
+    void updatePermission(Permission permission);
+
+    /**
      * 删除权限
      * @param id
      */

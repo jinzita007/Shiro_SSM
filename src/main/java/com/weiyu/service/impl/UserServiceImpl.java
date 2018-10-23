@@ -64,19 +64,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserRoles(User user, Long urId, Long... roleIds){
-             userDao.updateUser(user);
-            if (roleIds !=null && roleIds.length>0) {
-                for (Long roleId: roleIds) {
-                    System.out.println("--------角色id: "+roleId+"-----------用户ID: "+user.getId()+"------------用户角色ID: "+urId);
-                    UserRole userRole = new UserRole();
-                    userRole.setId(urId);
-                    userRole.setUserId(user.getId());
-                    userRole.setRoleId(roleId);
-                    userDao.updateUserRole(userRole);
-                }
-
+        userDao.updateUser(user);
+        if (roleIds !=null && roleIds.length>0) {
+            for (Long roleId: roleIds) {
+                System.out.println("--------角色id: "+roleId+"-----------用户ID: "+user.getId()+"------------用户角色ID: "+urId);
+                UserRole userRole = new UserRole();
+                userRole.setId(urId);
+                userRole.setUserId(user.getId());
+                userRole.setRoleId(roleId);
+                userDao.updateUserRole(userRole);
             }
+
         }
+    }
 
 
     @Override

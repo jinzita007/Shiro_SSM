@@ -1,5 +1,6 @@
 package com.weiyu.controller;
 
+import com.weiyu.domain.Role;
 import com.weiyu.domain.User;
 import com.weiyu.service.RoleService;
 import com.weiyu.service.UserService;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @date 2018/10/11 下午2:55.
  * 用户控制层
  */
+@CrossOrigin
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -99,16 +101,42 @@ public class UserController {
     }
 
     /**
-     * 用户列表
+     * 跳转用户列表
      *
      * @return
      */
-    @RequiresPermissions("user:list")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String UserList(Model model) {
-        List<User> userList = userService.selectUser();
-        model.addAttribute("userList", userList);
+//    @RequiresPermissions("user:*")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String doUser() {
         return "user/list";
+    }
+
+    /**
+     * 用户列表接口
+     *
+     * @return
+     */
+//    @RequiresPermissions("user:list")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> UserList() {
+        Map<String,Object> map = new HashMap<>();
+        List<User> userList = userService.selectUser();
+        map.put("data", userList);
+        return map;
+    }
+
+    /**
+     * 角色选择接口
+     * @return
+     */
+    @RequestMapping(value = "/role_list", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> RoleList() {
+        Map<String,Object> map = new HashMap<>();
+        List<Role> roleList = roleService.findRoles();
+        map.put("data", roleList);
+        return map;
     }
 
     /**
@@ -124,12 +152,12 @@ public class UserController {
     }
 
     /**
-     * 新增用户
+     * 新增用户接口
      *
      * @param user
      * @return
      */
-    @RequiresPermissions("user:add")
+//    @RequiresPermissions("user:add")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public User addUser(User user, Long... roleIds) {
@@ -139,22 +167,34 @@ public class UserController {
     }
 
 
-    /**
-     * 跳转修改用户页面
-     *
-     * @param id
-     * @param model
-     * @return
-     */
-    @RequiresPermissions("user:update")
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
-    public String showUpdate(@PathVariable("id") Long id, Model model) {
-        setRoles(model);
+//    /**
+//     * 跳转修改用户页面
+//     *
+//     * @param id
+//     * @param model
+//     * @return
+//     */
+//    @RequiresPermissions("user:update")
+//    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+//    public String showUpdate(@PathVariable("id") Long id, Model model) {
+//        setRoles(model);
+//        if (userService.findById(id) != null) {
+//            model.addAttribute("userRole", userService.findById(id));
+//        }
+//        model.addAttribute("userRole", userService.findByUserRole(id));
+//        return "user/edit";
+//    }
+
+//    @RequiresPermissions("user:update")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> showUpdate(@PathVariable("id") Long id) {
+        Map<String,Object> map = new HashMap<>();
         if (userService.findById(id) != null) {
-            model.addAttribute("userRole", userService.findById(id));
+            map.put("data", userService.findById(id));
         }
-        model.addAttribute("userRole", userService.findByUserRole(id));
-        return "user/edit";
+        map.put("userRole", userService.findByUserRole(id));
+        return map;
     }
 
 
@@ -163,16 +203,17 @@ public class UserController {
      * @return
      */
     @RequiresPermissions("user:update")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> update(User user, Long urId, Long... roleIds) {
         Map<String,Object> map = new HashMap<>();
-        System.out.println("--------"+user.getUsername()+"-----------");
+//        System.out.println("--------"+user.getUsername()+"-----------");
         if (userService.findByUserRolesId(user.getId())!=null) {
             userService.updateUserRoles(user, urId, roleIds);
             map.put("msg", "OK!");
             map.put("data", "----------"+user+"----------urId:"+urId+"---------roleIds:"+roleIds);
-        } else {
+        }
+        else {
             userService.addUserRole(user, roleIds);
             map.put("msg", "OK!");
             map.put("data", user);

@@ -24,51 +24,31 @@ public class PermissionController {
 
     @Autowired
     private PermissionService permissionService;
-//
-//    /**
-//     * 跳转权限页面
-//     * @return
-//     */
-//    @RequiresPermissions("permission:list")
-//    @RequestMapping(value = "list", method = RequestMethod.GET)
-//    @ResponseBody
-//    public String PermissionList(Model model){
-//        List<Permission> permissionList = permissionService.findAllPermission();
-//        model.addAttribute("permissionList", permissionList);
-//        return "permission/list";
-//    }
 
     /**
      * 跳转权限页面
      * @return
      */
     @RequiresPermissions("permission:list")
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String PermissionList(){
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String doPermissionList(){
         return "permission/list";
     }
 
-//    @RequiresPermissions("permission:list")
+    /**
+     * 权限列表接口
+     * @return
+     */
+    @RequiresPermissions("permission:list")
     @RequestMapping(value = "permlist", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> PermissionLists(){
+    public Map<String, Object> PermissionList(){
         Map<String, Object> map = new HashMap<>();
         List<Permission> permissionList = permissionService.findAllPermission();
         map.put("data", permissionList);
         return map;
     }
 
-
-
-    /**
-     * 跳转新增权限页面
-     * @return
-     */
-    @RequiresPermissions("permission:add")
-    @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String showPermission() {
-        return "permission/add";
-    }
 
     /**
      * 新增权限接口
@@ -85,33 +65,13 @@ public class PermissionController {
         return map;
     }
 
-    /**
-     * 添加子节点
-     * @param pid
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "{pid}/appendChild", method = RequestMethod.GET)
-    public String showAppendChild(@PathVariable("pid") Long pid, Model model) {
-        Permission parent = permissionService.findOne(pid);
-        model.addAttribute("parent", parent);
-        return "permission/edit";
-    }
-
-
-//    @RequestMapping(value = "{pid}/appendChild", method = RequestMethod.GET)
-//    public String showAppendChilds(@PathVariable("pid") Long pid, Model model) {
-//        model.addAttribute("pid", pid);
-//        return "permission/edit";
-//    }
-
-
 
     /**
      * 增加子节点接口
      * @param permission
      * @return
      */
+    @RequiresPermissions("permission:add")
     @RequestMapping(value = "{pid}/appendChild", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> create(Permission permission) {
@@ -123,7 +83,23 @@ public class PermissionController {
     }
 
     /**
-     * 删除角色
+     * 更新权限接口
+     * @param permission
+     * @return
+     */
+    @RequiresPermissions("permission:update")
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> update(Permission permission) {
+        Map<String, Object> map = new HashMap<>();
+        permissionService.updatePermission(permission);
+        map.put("msg", "新增子节点成功！");
+        map.put("data", permission);
+        return map;
+    }
+
+    /**
+     * 删除权限
      * @param id
      */
     @RequiresPermissions("permission:delete")
@@ -133,7 +109,4 @@ public class PermissionController {
         permissionService.deletePermission(id);
     }
 
-    private void setPermissions(Model model) {
-        model.addAttribute("permissionList", permissionService.findAllPermission());
-    }
 }

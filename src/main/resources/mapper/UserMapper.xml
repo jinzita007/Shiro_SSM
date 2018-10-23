@@ -37,7 +37,7 @@
     </select>
 
     <!--新增用户-->
-    <insert id="addUser" parameterType="User">
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_user(username, email, password)
         VALUES(
             #{username},
@@ -47,7 +47,7 @@
     </insert>
 
     <!--新增用户角色关联-->
-    <insert id="addUserRole" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="UserRole">
+    <insert id="addUserRole" parameterType="UserRole">
         INSERT INTO sys_user_role(user_id, role_id)
         VALUES(#{userId}, #{roleId})
     </insert>

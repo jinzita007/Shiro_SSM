@@ -30,7 +30,7 @@
         role_id = #{id}
     </select>
 
-    <!--新增用户-->
+    <!--新增角色-->
     <insert id="addRole" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_role(name)
         VALUES(
