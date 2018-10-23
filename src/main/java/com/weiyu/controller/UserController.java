@@ -105,7 +105,7 @@ public class UserController {
      *
      * @return
      */
-//    @RequiresPermissions("user:*")
+    @RequiresPermissions("user:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String doUser() {
         return "user/list";
@@ -116,7 +116,7 @@ public class UserController {
      *
      * @return
      */
-//    @RequiresPermissions("user:list")
+    @RequiresPermissions("user:list")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> UserList() {
@@ -157,7 +157,7 @@ public class UserController {
      * @param user
      * @return
      */
-//    @RequiresPermissions("user:add")
+    @RequiresPermissions("user:add")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public User addUser(User user, Long... roleIds) {
@@ -166,26 +166,7 @@ public class UserController {
         return user;
     }
 
-
-//    /**
-//     * 跳转修改用户页面
-//     *
-//     * @param id
-//     * @param model
-//     * @return
-//     */
-//    @RequiresPermissions("user:update")
-//    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
-//    public String showUpdate(@PathVariable("id") Long id, Model model) {
-//        setRoles(model);
-//        if (userService.findById(id) != null) {
-//            model.addAttribute("userRole", userService.findById(id));
-//        }
-//        model.addAttribute("userRole", userService.findByUserRole(id));
-//        return "user/edit";
-//    }
-
-//    @RequiresPermissions("user:update")
+    @RequiresPermissions("user:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> showUpdate(@PathVariable("id") Long id) {
@@ -207,7 +188,6 @@ public class UserController {
     @ResponseBody
     public Map<String,Object> update(User user, Long urId, Long... roleIds) {
         Map<String,Object> map = new HashMap<>();
-//        System.out.println("--------"+user.getUsername()+"-----------");
         if (userService.findByUserRolesId(user.getId())!=null) {
             userService.updateUserRoles(user, urId, roleIds);
             map.put("msg", "OK!");
@@ -255,8 +235,5 @@ public class UserController {
 
         return map;
     }
-
-
-
 
 }
